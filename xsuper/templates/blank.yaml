@@ -1,0 +1,35 @@
+# My anime - edit this file, then:  xsuper render .
+# Full field guide: see README.md ("episode.yaml cheat sheet").
+title: My Anime
+episode: 1
+style: bright_fantasy     # bright_fantasy | dark_action | bright_shonen | soft_drama | retro_90s | noir_horror
+language: en
+resolution: [1920, 1080]
+fps: 24
+seed: 1
+
+characters:
+  hero:
+    name: Hero
+    kind: boy               # boy | girl | man | woman | other
+    tags: spiky black hair, blue eyes, determined eyes
+    outfits:
+      default: black hoodie, jeans, sneakers
+    # voice: am_michael     # optional, see README for the voice list
+    # lora: hero.safetensors
+    # trigger: hero_xs
+
+locations:
+  street: city street, shops, crosswalk, power lines
+
+scenes:
+  - id: opening
+    location: street
+    time: day               # day morning sunset dusk night rain snow indoor indoor_night
+    shots:
+      - action: busy city street, people walking
+        camera: pan_right
+        transition: fade
+      - say: hero
+        line: Today's the day everything changes.
+        expression: determined

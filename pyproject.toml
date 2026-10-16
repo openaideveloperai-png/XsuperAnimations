@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xsuper"
+version = "0.1.0"
+description = "XsuperAnimations - make consistent anime episodes from prompts, scripts and rough doodles with free open models"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+  "numpy>=1.24",
+  "pillow>=10.1",
+  "pyyaml>=6",
+  "requests>=2.28",
+  "opencv-python-headless>=4.8",
+]
+
+[project.optional-dependencies]
+ui = ["gradio>=4.40"]
+voice = ["kokoro>=0.9", "soundfile"]
+voice-ja = ["kokoro>=0.9", "soundfile", "misaki[ja]"]
+dev = ["pytest"]
+all = ["gradio>=4.40", "kokoro>=0.9", "soundfile"]
+
+[project.scripts]
+xsuper = "xsuper.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["xsuper*"]
+
+[tool.setuptools.package-data]
+xsuper = ["templates/*.yaml", "templates/demo/*.yaml", "templates/demo/sketches/*.png"]

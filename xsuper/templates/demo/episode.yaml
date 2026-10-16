@@ -1,0 +1,186 @@
+# ─────────────────────────────────────────────────────────────────────────────
+#  ASHFALL - Episode 1  (demo project for XsuperAnimations)
+#
+#  This one file is your whole episode: the cast, the places, and every shot.
+#  Render a free preview:   xsuper render .               (animatic, no GPU)
+#  Render the real thing:   xsuper render . --mode final  (needs ComfyUI)
+# ─────────────────────────────────────────────────────────────────────────────
+title: Ashfall
+episode: 1
+style: dark_action        # bright_fantasy | dark_action | bright_shonen | soft_drama | retro_90s | noir_horror
+language: en              # voice language: en or ja
+resolution: [1920, 1080]
+fps: 24
+seed: 4242                # master seed - same seed = same drawings every time
+
+# The cast. These tags are reused in EVERY shot so characters stay on-model.
+# After you train a LoRA for a character (xsuper sheet ...), add  lora: + trigger:
+characters:
+  ren:
+    name: Ren Kagari
+    kind: boy
+    tags: messy white hair, red eyes, sharp eyes, small scar on left cheek, slim build
+    outfits:
+      default: black gakuran, high collar, long red scarf
+      battle: torn black gakuran, long red scarf, bandaged arms, embers around hands
+    voice: am_michael
+  mika:
+    name: Mika Sorano
+    kind: girl
+    tags: short teal hair, bob cut, amber eyes, round glasses, star hairclip
+    outfits:
+      default: white sailor school uniform, navy pleated skirt, green cardigan
+    voice: af_heart
+  hollow:
+    name: The Hollow
+    kind: man
+    tags: very tall, white noh mask, long black hair, ghostly pale hands, long fingers
+    outfits:
+      default: tattered black robe
+    voice: bm_george
+    voice_speed: 0.85
+
+locations:
+  alley: narrow back alley, neon signs, vending machine, power lines, puddles, trash bags
+  rooftop: school rooftop, chain-link fence, water tower, city skyline in background
+  shrine: old shinto shrine, stone lanterns, red torii gate, tall cedar trees, stone steps
+
+# Scenes -> shots. Most shot fields are optional; anime shot grammar fills the gaps.
+#   say + line       dialogue (close-up, lip flaps, voice, subtitle)
+#   action           what happens (danbooru-style tags work best)
+#   motion: ai       real in-between animation from a video model (use for key moments)
+#   camera           hold drift pan_left pan_right tilt_up tilt_down push_in pull_out zoom_punch shake
+#   fx               speed_lines streaks impact shake flash rain glow letterbox
+#   sketch           your own drawing, however rough, turned into the frame
+scenes:
+  - id: cold_open
+    location: alley
+    time: night
+    shots:
+      - action: empty alley, neon light reflecting in puddles, steam
+        camera: pan_right
+        seconds: 4
+        transition: fade
+        fx: [rain]
+      - characters: [hollow]
+        action: standing at the end of the alley, silhouette, rain, ominous
+        framing: full
+        angle: low
+        camera: push_in
+        fx: [rain]
+      - say: mika
+        line: Who... who's there?
+        expression: scared
+        framing: medium
+        fx: [rain]
+      - say: hollow
+        line: Found you, little spark.
+        framing: closeup
+        expression: neutral
+        camera: push_in
+        fx: [rain]
+      - characters: [hollow]
+        action: lunging forward, reaching with long claws, motion blur
+        motion: ai
+        angle: dutch
+        fx: [speed_lines, rain]
+      - characters: [ren]
+        action: red flames exploding from fist, punching, from below
+        outfit: battle
+        framing: medium
+        fx: [impact, glow]
+        seconds: 1.5
+
+  - id: title
+    shots:
+      - card: "ASHFALL\nEpisode 1 - The Boy Who Caught Fire"
+        seconds: 4
+        transition: fade
+
+  - id: rooftop
+    location: rooftop
+    time: sunset
+    shots:
+      - action: empty rooftop, wind, clouds, birds flying
+        camera: pan_left
+        transition: fade
+        seconds: 4
+      - characters: [ren, mika]
+        action: sitting against the fence, looking at the sky
+        framing: full
+        camera: drift
+      - say: mika
+        line: You were there last night. In the alley. Don't lie to me.
+        expression: angry
+      - say: ren
+        line: I don't know what you're talking about.
+        expression: neutral
+      - characters: [mika]
+        say: ren
+        line: Go home, Mika.
+        expression: sad
+        framing: closeup
+      - say: mika
+        line: Your hands were on fire, Ren!
+        expression: furious
+        camera: zoom_punch
+        fx: [shake]
+      - characters: [ren]
+        action: looking down at his trembling hands, embers, close-up on hands
+        framing: closeup
+        camera: push_in
+        fx: [glow]
+      - characters: [ren]
+        action: jumping over the fence, leaping, midair, scarf flowing, dynamic pose
+        sketch: sketches/leap.png        # a terrible stick-figure doodle -> real frame
+        sketch_strength: 0.6
+        framing: full
+        camera: hold
+        fx: [streaks]
+        seconds: 2
+
+  - id: shrine
+    location: shrine
+    time: night
+    outfits: {ren: battle}
+    shots:
+      - action: shrine at night, stone lanterns glowing, fog
+        camera: tilt_down
+        transition: fade
+        seconds: 4
+      - characters: [hollow]
+        action: standing under the torii gate, mask glowing
+        framing: full
+        camera: pull_out
+      - say: hollow
+        line: You can't hide what you are.
+        framing: closeup
+        angle: low
+      - say: ren
+        line: Then I'll stop hiding.
+        expression: determined
+        framing: closeup
+        camera: push_in
+      - characters: [ren]
+        action: dashing forward, fist covered in red flames, fire trail
+        motion: ai
+        fx: [speed_lines]
+      - characters: [ren, hollow]
+        action: fist hitting mask, shockwave, explosion of red fire, cracks
+        framing: medium
+        transition: flash
+        fx: [impact, shake, glow]
+        seconds: 2
+      - characters: [ren]
+        action: standing in falling ash, back turned, scarf flowing, embers
+        angle: behind
+        framing: full
+        camera: pull_out
+        fx: [glow, letterbox]
+        seconds: 4
+
+  - id: outro
+    shots:
+      - card: "To be continued"
+        seconds: 3
+        transition: fade
